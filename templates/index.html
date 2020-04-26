@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web Visualization Dashboard/Landing</title>
+
+    <!-- Link Bootstrap Stylesheet and Link CSS Stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <a class="navbar-brand" href="index.html">Latitude</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Plots
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+                        <a class="dropdown-item" href="max_temperature_page.html">Max Temperature</a>
+                        <a class="dropdown-item" href="humidity_page.html">Humidity</a>
+                        <a class="dropdown-item" href="cloudiness_page.html">Cloudiness</a>
+                        <a class="dropdown-item" href="wind_speed_page.html">Wind Speed</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="comparison_page.html">Comparison</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="data_page.html">Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contents Section of Left Side (Bootstrap Grid) -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="box white">
+                    <h3 class="title">Summary: Latitude vs. X</h3>
+                    <hr>
+                    <img class="w-50 float-left" src="Resources/assets/images/Fig1.png" alt="Max Temperature Plot">
+                    <p>The purpose of this project was to analyze how weather changes as you get closer to the equator. To accomplish this analysis, we first pulled
+                        data from the OpenWeatherMap API to assemble a dataset on over 500 cities.</p>
+                    <p>After assembling the dataset, we used Matplotlib to plot various aspects of the weather vs. latitude. Factors we looked at included: temperature,
+                        cloudiness, wind speed and humidity.  This site provides the source data and visualizations created as part of the analysis, as well as 
+                        explanations and descriptions of any trends and correlations witnessed.</p>
+                </div>
+            </div>
+
+    <!-- Contents Section of Right Side (Bootstrap Grid) -->
+            <div class="col-md-5">
+                <div class="box white">
+                    <h3 class="title">Visualizations</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm col-md-6">
+                            <a href="max_temperature_page.html">
+                                <img class="visualization float-left" src="Resources/assets/images/Fig1.png" alt="Max Temperature Plot">
+                            </a>
+                        </div>
+                        <div class="col-sm col-md-6">
+                            <a href="humidity_page.html">
+                                <img class="visualization float-left" src="Resources/assets/images/Fig2.png" alt="Humidity Plot">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm col-md-6">
+                            <a href="cloudiness_page.html">
+                                <img class="visualization float-left" src="Resources/assets/images/Fig3.png"  alt="Cloudiness Plot">
+                            </a>
+                        </div>
+                        <div class="col-sm col-md-6">
+                            <a href="wind_speed_page.html">
+                                <img class="visualization float-left" src="Resources/assets/images/Fig4.png" alt="Wind Speed Plot">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <!-- Contents Section (Footer) -->
+    <footer>
+        <div class="footer">Copyright &copy; Darlene Ko 2020</div>
+    </footer>
+
+    <!-- Added 3 JavaScripts to run Bootstrap Components in the background -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

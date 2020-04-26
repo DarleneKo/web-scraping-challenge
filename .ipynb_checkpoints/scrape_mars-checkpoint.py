@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# MISSION TO MARS:  (Part 1: Web Scraping)"
+    "# MISSION TO MARS:  (Part 2: MongoDB and Flask Application)"
    ]
   },
   {
@@ -28,10 +28,12 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# Windows Users\n",
-    "executable_path = {'executable_path': 'chromedriver.exe'}\n",
-    "browser = Browser('chrome', **executable_path, headless=False)\n",
-    "time.sleep(3)"
+    "# Initialize the Browser for Windows Users\n",
+    "def init_browser():\n",
+    "    executable_path = {'executable_path': 'chromedriver.exe'}\n",
+    "    browser = Browser('chrome', **executable_path, headless=False)\n",
+    "    time.sleep(3)\n",
+    "    return browser"
    ]
   },
   {
@@ -768,7 +770,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -780,7 +782,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -791,10 +793,99 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[<div class=\"item\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/cerberus_enhanced\"><img alt=\"Cerberus Hemisphere Enhanced thumbnail\" class=\"thumb\" src=\"/cache/images/dfaf3849e74bf973b59eb50dab52b583_cerberus_enhanced.tif_thumb.png\"/></a><div class=\"description\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/cerberus_enhanced\"><h3>Cerberus Hemisphere Enhanced</h3></a><span class=\"subtitle\" style=\"float:left\">image/tiff 21 MB</span><span class=\"pubDate\" style=\"float:right\"></span><br/><p>Mosaic of the Cerberus hemisphere of Mars projected into point perspective, a view similar to that which one would see from a spacecraft. This mosaic is composed of 104 Viking Orbiter images acquired…</p></div> <!-- end description --></div>, <div class=\"item\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/schiaparelli_enhanced\"><img alt=\"Schiaparelli Hemisphere Enhanced thumbnail\" class=\"thumb\" src=\"/cache/images/7677c0a006b83871b5a2f66985ab5857_schiaparelli_enhanced.tif_thumb.png\"/></a><div class=\"description\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/schiaparelli_enhanced\"><h3>Schiaparelli Hemisphere Enhanced</h3></a><span class=\"subtitle\" style=\"float:left\">image/tiff 35 MB</span><span class=\"pubDate\" style=\"float:right\"></span><br/><p>Mosaic of the Schiaparelli hemisphere of Mars projected into point perspective, a view similar to that which one would see from a spacecraft. The images were acquired in 1980 during early northern…</p></div> <!-- end description --></div>, <div class=\"item\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/syrtis_major_enhanced\"><img alt=\"Syrtis Major Hemisphere Enhanced thumbnail\" class=\"thumb\" src=\"/cache/images/aae41197e40d6d4f3ea557f8cfe51d15_syrtis_major_enhanced.tif_thumb.png\"/></a><div class=\"description\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/syrtis_major_enhanced\"><h3>Syrtis Major Hemisphere Enhanced</h3></a><span class=\"subtitle\" style=\"float:left\">image/tiff 25 MB</span><span class=\"pubDate\" style=\"float:right\"></span><br/><p>Mosaic of the Syrtis Major hemisphere of Mars projected into point perspective, a view similar to that which one would see from a spacecraft. This mosaic is composed of about 100 red and violet…</p></div> <!-- end description --></div>, <div class=\"item\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/valles_marineris_enhanced\"><img alt=\"Valles Marineris Hemisphere Enhanced thumbnail\" class=\"thumb\" src=\"/cache/images/04085d99ec3713883a9a57f42be9c725_valles_marineris_enhanced.tif_thumb.png\"/></a><div class=\"description\"><a class=\"itemLink product-item\" href=\"/search/map/Mars/Viking/valles_marineris_enhanced\"><h3>Valles Marineris Hemisphere Enhanced</h3></a><span class=\"subtitle\" style=\"float:left\">image/tiff 27 MB</span><span class=\"pubDate\" style=\"float:right\"></span><br/><p>Mosaic of the Valles Marineris hemisphere of Mars projected into point perspective, a view similar to that which one would see from a spacecraft. The distance is 2500 kilometers from the surface of…</p></div> <!-- end description --></div>]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Examine the results, then determine element that contains sought info (All Hemispheres)\n",
+    "hemispheres = hemispheres_soup.find_all('div', class_='item')\n",
+    "\n",
+    "# Print the scraped information\n",
+    "print(hemispheres)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "# Store the main_ul \n",
+    "hemispheres_main_url = 'https://astrogeology.usgs.gov'\n",
+    "\n",
+    "# Create empty list for Hemisphere urls \n",
+    "hemispheres_image_url = []"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Loop through data for All Hemispheres\n",
+    "\n",
+    "for x in hemispheres:\n",
+    "    \n",
+    "    # Store Title for each Hemisphere\n",
+    "    title = x.find('h3').text\n",
+    "    \n",
+    "    # Store url for each Hemisphere\n",
+    "    hemisphere_url = x.find('a', class_='itemLink product-item')['href']\n",
+    "    \n",
+    "    # Visit the link that contains the full image website \n",
+    "    browser.visit(hemispheres_main_url + hemisphere_url)\n",
+    "    time.sleep(3)\n",
+    "    \n",
+    "    # HTML Object of individual hemisphere information website \n",
+    "    hemisphere_html = browser.html\n",
+    "    \n",
+    "    # Parse HTML with Beautiful Soup for every individual hemisphere information website \n",
+    "    hemisphere_soup = BeautifulSoup(hemisphere_html, 'html.parser')\n",
+    "    \n",
+    "    # Retrieve full image source \n",
+    "    img_url = hemispheres_main_url + hemisphere_soup.find('img', class_='wide-image')['src']\n",
+    "    \n",
+    "    # Append the retreived information into a list of dictionaries \n",
+    "    hemispheres_image_url.append({\"title\" : title, \"img_url\" : img_url})\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[{'title': 'Cerberus Hemisphere Enhanced',\n",
+       "  'img_url': 'https://astrogeology.usgs.gov/cache/images/cfa62af2557222a02478f1fcd781d445_cerberus_enhanced.tif_full.jpg'},\n",
+       " {'title': 'Schiaparelli Hemisphere Enhanced',\n",
+       "  'img_url': 'https://astrogeology.usgs.gov/cache/images/3cdd1cbf5e0813bba925c9030d13b62e_schiaparelli_enhanced.tif_full.jpg'},\n",
+       " {'title': 'Syrtis Major Hemisphere Enhanced',\n",
+       "  'img_url': 'https://astrogeology.usgs.gov/cache/images/ae209b4e408bb6c3e67b6af38168cf28_syrtis_major_enhanced.tif_full.jpg'},\n",
+       " {'title': 'Valles Marineris Hemisphere Enhanced',\n",
+       "  'img_url': 'https://astrogeology.usgs.gov/cache/images/7cf2da4bf549ed01c17f206327be4db7_valles_marineris_enhanced.tif_full.jpg'}]"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Display hemisphere_image_urls\n",
+    "hemispheres_image_url"
+   ]
   }
  ],
  "metadata": {
