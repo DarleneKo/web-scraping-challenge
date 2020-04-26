@@ -16,7 +16,7 @@ def init_browser():
     return browser
 
 # Create Scrape Function
-def scrape():
+def scrape_info():
     browser = init_browser()
     
     ###################################################################################################################
@@ -210,6 +210,6 @@ def scrape():
 # Test if Scrape Function works properly
 if __name__ == "__main__":
     print("\nTesting Data Retrieval...\n")
-    print(scrape())
+    print(scrape_info())
     print("\nProcess Complete!\n")
 
