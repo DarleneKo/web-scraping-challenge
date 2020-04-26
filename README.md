@@ -11,3 +11,6 @@ Our challenge was to scrape information from five different websites to gather d
 After scraping each of the five websites, we used MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped from the URLs above.
 
 The screenshot of my HTML page is displayed below:
+
+
+![](Screenshot.png)
